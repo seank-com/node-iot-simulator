@@ -1,0 +1,29 @@
+{
+  "name": "node-iot-simulator",
+  "version": "1.0.0",
+  "description": "A simulated IoT device using node in a container",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sean Kelly",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/seank-com/node-iot-simulator/issues"
+  },
+  "homepage": "https://github.com/seank-com/node-iot-simulator#readme",
+  "dependencies": {
+    "azure-iot-common": "^1.1.6",
+    "azure-iot-device": "^1.1.9",
+    "azure-iot-device-amqp": "^1.1.9",
+    "dotenv": "^4.0.0",
+    "uuid": "^3.0.1"
+  },
+  "scripts": {
+    "build": "docker build -t node-iot-simulator .",
+    "start": "docker run --init -d -p 3000:3000 --name \"iot_simulator\" node-iot-simulator",
+    "stop": "docker stop iot_simulator && docker logs iot_simulator && docker rm iot_simulator",
+    "debug": "docker run -p 9229:9229 -e \"NODE_ENV=development\" -v `pwd`:/app -it -p 3000:3000 --name \"iot_simulator\" node-iot-simulator nodemon --inspect-brk=0.0.0.0:9229 ./index.js",
+    "shell": "docker exec -it iot_simulator /bin/sh"
+  }
+}

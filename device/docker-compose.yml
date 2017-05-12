@@ -1,0 +1,12 @@
+version: "2"
+services:
+  device:
+    build: .
+    entrypoint: /usr/local/bin/nodemon --debug=56745 ./index.js
+    environment:
+      NODE_ENV: development
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+      - "56745:56745"
